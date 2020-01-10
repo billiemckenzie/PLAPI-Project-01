@@ -1,0 +1,19 @@
+body {
+    font-size: 12px;
+}
+
+.btn-outline-danger {
+    font-size:10px;
+}
+
+.btn-secondary {
+    font-size: 10px;
+}
+
+.form-control {
+    font-size: 10px;
+}
+
+.custom-select {
+    font-size: 10px;
+}

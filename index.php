@@ -28,57 +28,68 @@ function __($input)
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h3>Cars</h3>
+    <div class="container mt-5 mb-5">
+        <h3>Cars in Stock</h3>
         <hr>
 
         <div class="row">
-            <div class="col-8 mb-5">
-                <form class="input-group" id="search-form">
+            <div class="col-8 m-auto">
+                <form class="input-group mt-5 mb-5" id="search-form">
                     <div class="input-group-prepend">
                         <select class="custom-select" id="year-select">
                             <option selected value="0">Year</option>
                             <?php
-                            for($i = 1950; $i <= intval(date("Y")); $i++ )
+                            for ($i = 1950; $i <= intval(date("Y")); $i++)
                                 echo "<option value='$i'>$i</option>";
                             ?>
                         </select>
                     </div>
-                    <input type="modelsearch" name="modelsearch" id="modelsearch" placeholder="Enter Car Make or Model" class="form-control">
+                    <input type="search" name="modelsearch" id="modelsearch" placeholder="Enter Car Make or Model" class="form-control">
                     <input type="search" name="search" id="search-nickname" placeholder="Enter Nickname" class="form-control">
                     <div class="input-group-append">
-                        <button class="btn btn-primary form-control" type="submit">
+                        <button class="btn btn-secondary form-control" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </form>
             </div>
         </div>
+        <div class="col-8 m-auto">
+            <table class="table">
+                <thead>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Nickname</th>
+                </thead>
+                <tbody id="search-results">
 
-        <table class="table">
-            <thead>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Nickname</th>
-            </thead>
-            <tbody id="search-results">
-                <?php
-                $sql = "SELECT * FROM cars";
-                $results = $db->query($sql);
 
-                while ($row = $results->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . __($row["make"]) . "</td>";
-                    echo "<td>" . __($row["model"]) . "</td>";
-                    echo "<td>" . __($row["year"]) . "</td>";
-                    echo "<td>" . __($row["nickname"]) . "</td>";
-                    echo "</tr>";
-                }
+                </tbody>
+                <tfoot>
+                    <th><input type="text" class="form-control" placeholder="Make" id="car_make_input"></th>
+                    <th><input type="text" class="form-control" placeholder="Model" id="car_model_input"></th>
+                    <th><input type="text" class="form-control" placeholder="Year" id="car_year_input"></th>
+                    <th><input type="text" class="form-control" placeholder="Nickname" id="car_nickname_input"></th>
+                    <th><button class="btn btn-secondary" data-action="new_car"><i class="fas fa-plus"></i></button></th>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 
-                ?>
-            </tbody>
-        </table>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteCarAlert" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Are you sure you want to delete this car?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-action="confirm-delete">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
